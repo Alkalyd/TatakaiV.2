@@ -1,0 +1,198 @@
+WhiteList = {284067266, 2958991826, 2637656194, 1179103962, 33901315, 101740507, 88364578, 639224736, 1679527327, 1253987799, 218371336, 54099434}
+GuestList = {1743013672}
+BlackList = {}
+
+local plr = game.Players.LocalPlayer
+
+local Find = table.find(WhiteList, plr.UserId)
+local Find1 = table.find(GuestList, plr.UserId)
+local Block = table.find(BlackList, plr.UserId)
+
+
+if Find or Find1 then
+    
+getgenv().SemiAutoStrength = false
+getgenv().SemiAutoRoadWork = false
+
+-- init
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("D's World", 5013109572)
+
+-- themes
+local themes = {
+Background = Color3.fromRGB(24, 24, 24),
+Glow = Color3.fromRGB(0, 0, 0),
+Accent = Color3.fromRGB(10, 10, 10),
+LightContrast = Color3.fromRGB(20, 20, 20),
+DarkContrast = Color3.fromRGB(14, 14, 14),  
+TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+-- first page
+local page = venyx:addPage("Stat Farm", 5012544693)
+local section1 = page:addSection("Strength")
+local section2 = page:addSection("Speed")
+
+
+function TrainStrength()
+    spawn(function()
+        
+        local plr = game.Players.LocalPlayer
+            local character = plr.character
+            local Humanoid = character:FindFirstChild("Humanoid")
+            local HRP = character:FindFirstChild("HumanoidRootPart")
+            local Debounce = false
+            local Glovess = false
+            
+            local PB = game.Workspace["Punching Bags"]:GetDescendants()
+            
+            local Bags = {}
+            local gg
+            local pg
+            
+            for i, v in pairs(PB) do
+               if v.Name == "HumanoidRootPart" then
+                   gg = table.find(Bags, v)
+                   
+                   if not gg then
+                   table.insert(Bags, v)
+                   end
+                   
+                   pg = Bags[1].CFrame
+                end
+            end
+                   TT = table.unpack(Bags)
+                   
+                   local Num = TT
+        
+        while getgenv().SemiAutoStrength == true do wait()
+             local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
+                local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
+                if Debounce == false and GloveItem then
+                    HRP.CFrame = Num.CFrame
+                   HRP.CFrame = HRP.CFrame * CFrame.new(0, 0, 1)
+                   
+                   if Glovess == false then
+                       Combats.Parent = game.Players.LocalPlayer.Character
+                       
+                     GloveItem.Parent = game.Players.LocalPlayer.Character
+                     GloveItem.Equipped:Connect(function()
+                         GloveItem:Activate()
+                         Glovess = true
+                     end)
+                
+                    Combats.Equipped:Connect(function()
+                        while Glovess == true do wait()
+                        Combats:Activate()
+                        end
+                        end)
+                    end
+                   else
+                       Glovess = false
+                      Humanoid:UnequipTools()
+                       
+                        local first = game.Workspace.Items:GetDescendants()
+                        for i, v in pairs(first) do
+                             if v.Name == "Gloves $75" then
+                                local Part = v:FindFirstChild("Head")
+                                 HRP.CFrame = Part.CFrame * CFrame.new(0, 1, 0)
+                             end
+                        end
+                end
+            end
+--
+    end)
+end
+
+function TrainRoadwork()
+    spawn(function()
+        local plr = game.Players.LocalPlayer
+        local character = plr.character
+        local Humanoid = character:FindFirstChild("Humanoid")
+        local HRP = character:FindFirstChild("HumanoidRootPart")
+        local CD = .3 --Change to go faster or slower
+        local Debounce = false
+        
+        local RoadWorkFolder = game.Workspace.Roadwork
+
+        while getgenv().SemiAutoRoadWork == true do wait()
+             local RoadworkItem = plr.Backpack:FindFirstChild("Roadwork") or character:FindFirstChild("Roadwork")
+    
+                if Debounce == false and RoadworkItem then
+                    Debounce = true
+                   RoadworkItem.Parent = game.Players.LocalPlayer.Character
+                   RoadworkItem.Equipped:Connect(function()
+                         RoadworkItem:Activate()
+                     end)
+                    
+                HRP.CFrame = RoadWorkFolder["1"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["2"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["3"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["4"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["5"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["6"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["7"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["8"].CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                wait(CD)
+                HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(27.3, 0, -79)
+                Debounce = false
+                end
+                    end
+    end)
+end
+
+section1:addToggle("Auto Strength", nil, function(bool)
+    getgenv().SemiAutoStrength = bool
+    if bool then
+        TrainStrength()
+    end
+end)
+
+local one, two, three, four, five, six = "1", "2", "3", "4", "5", "6"
+
+section1:addDropdown("Select Punching Bag", {one, two, three, four, five, six}, function(text)
+    TrainStrength(text)
+end)
+
+section2:addToggle("Auto Speed", nil, function(bool)
+    getgenv().SemiAutoRoadWork = bool
+    if bool then
+        TrainRoadwork()
+    end
+end)
+
+
+-- second page
+local theme = venyx:addPage("Theme", 5012544693)
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+colors:addColorPicker(theme, color, function(color3)
+venyx:setTheme(theme, color3)
+end)
+end
+
+-- load
+venyx:SelectPage(venyx.pages[1], true)
+
+elseif Block then
+    plr:Kick("You have been BlackListed")
+    
+    else
+        plr:Kick("You have not been WhiteListed")
+end
