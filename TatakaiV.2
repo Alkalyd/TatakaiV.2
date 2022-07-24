@@ -113,7 +113,7 @@ function TrainRoadwork()
         local CD = .3 --Change to go faster or slower
         local Debounce = false
         
-        local RoadWorkFolder = game.Workspace.Roadwork
+        local RoadWorkFolder = game:GetService("Workspace").Roadwork
 
         while getgenv().SemiAutoRoadWork == true do wait()
              local RoadworkItem = plr.Backpack:FindFirstChild("Roadwork") or character:FindFirstChild("Roadwork")
@@ -151,8 +151,10 @@ function TrainRoadwork()
                 wait(CD)
                 HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(27.3, 0, -79)
                 Debounce = false
+                else
+                    HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(27.3, 0, -79)
                 end
-                    end
+             end
     end)
 end
 
