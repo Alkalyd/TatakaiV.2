@@ -14,6 +14,8 @@ if Find or Find1 then
 getgenv().SemiAutoStrength = false
 getgenv().SemiAutoRoadWork = false
 
+getgenv().AutoClanReroll = false
+
 -- init
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
 local venyx = library.new("D's World", 5013109572)
@@ -29,9 +31,13 @@ TextColor = Color3.fromRGB(255, 255, 255)
 }
 
 -- first page
-local page = venyx:addPage("Stat Farm", 5012544693)
-local section1 = page:addSection("Strength")
-local section2 = page:addSection("Speed")
+local page1 = venyx:addPage("Stat Farm", 5012544693)
+local page2 = venyx:addPage("Misc", 5012544693)
+
+local P1section1 = page1:addSection("Strength")
+local P1section2 = page1:addSection("Speed")
+
+local P2section1 = page2:addSection("Clan Reroll")
 
 
 function TrainStrength()
@@ -104,13 +110,13 @@ function TrainStrength()
     end)
 end
 
-function TrainRoadwork()
+function TrainRoadwork(CDD)
     spawn(function()
         local plr = game.Players.LocalPlayer
         local character = plr.character
         local Humanoid = character:FindFirstChild("Humanoid")
         local HRP = character:FindFirstChild("HumanoidRootPart")
-        local CD = .3 --Change to go faster or slower
+        local CD = tonumber(CDD)
         local Debounce = false
         
         local RoadWorkFolder = game:GetService("Workspace").Roadwork
@@ -158,7 +164,35 @@ function TrainRoadwork()
     end)
 end
 
-section1:addToggle("Auto Strength", nil, function(bool)
+function ClanReroll(CD)
+    spawn(function()
+
+        while getgenv().AutoClanReroll == true do task.wait(tonumber(CD))
+            
+            local Name = game:GetService("Players").AlkalydLotus.PlayerGui.MainGui.StatusFrame["Name/Clan"]
+            local FoundName = Name.Text
+            
+            local ClanWanted = {"Hañma","Fujin", "Kagutsuchi", "Raijin", "Ryu", "Sung"}
+            
+            FoundName:gsub('(.*) (.*)', function (First, Clan)
+                Find = table.find(ClanWanted, Clan)
+            end)
+            
+            if Find then
+                print("Clan Found")
+                getgenv().AutoClanReroll = false
+            break
+            
+            elseif not Find then
+                
+                local args = {[1] = "BP"}
+                game:GetService("ReplicatedStorage").Reroll:FireServer(unpack(args))
+            end
+        end
+    end)
+end
+
+P1section1:addToggle("Auto Strength", nil, function(bool)
     getgenv().SemiAutoStrength = bool
     if bool then
         TrainStrength()
@@ -167,17 +201,32 @@ end)
 
 local one, two, three, four, five, six = "1", "2", "3", "4", "5", "6"
 
-section1:addDropdown("Select Punching Bag", {one, two, three, four, five, six}, function(text)
+P1section1:addDropdown("Select Punching Bag", {one, two, three, four, five, six}, function(text)
     TrainStrength(text)
 end)
 
-section2:addToggle("Auto Speed", nil, function(bool)
+P1section2:addToggle("Auto Speed", nil, function(bool)
     getgenv().SemiAutoRoadWork = bool
     if bool then
         TrainRoadwork()
     end
 end)
 
+P1section2:addSlider("Slider", 0, 0, 2, function(value)
+    TrainRoadwork(value)
+end)
+
+
+P2section1:addToggle("Clan Reroll", nil, function(bool)
+    getgenv().AutoClanReroll = bool
+    if bool then
+        ClanReroll()
+    end
+end)
+
+P1section1:addTextbox("Rate at which you spin", "Occulations", function(value)
+ClanReroll(value)
+end)
 
 -- second page
 local theme = venyx:addPage("Theme", 5012544693)
