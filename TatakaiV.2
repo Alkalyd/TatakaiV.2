@@ -32,7 +32,7 @@ TextColor = Color3.fromRGB(255, 255, 255)
 
 -- first page
 local page1 = venyx:addPage("Stat Farm", 5012544693)
-local page2 = venyx:addPage("Misc", 5012544693)
+local page2 = venyx:addPage("Misc", 5012544961)
 
 local P1section1 = page1:addSection("Strength")
 local P1section2 = page1:addSection("Speed")
@@ -40,7 +40,7 @@ local P1section2 = page1:addSection("Speed")
 local P2section1 = page2:addSection("Clan Reroll")
 
 
-function TrainStrength()
+function TrainStrength(TTT)
     spawn(function()
         
         local plr = game.Players.LocalPlayer
@@ -67,7 +67,21 @@ function TrainStrength()
                    pg = Bags[1].CFrame
                 end
             end
-                   TT = table.unpack(Bags)
+                    one, two, three, four, five, six = table.unpack(Bags)
+                   
+                  if TT == "1" then 
+                       TT = one
+                   elseif TT == "2" then
+                       TT = two
+                   elseif TT == "3" then
+                       TT = three
+                   elseif TT == "4" then
+                       TT = four
+                   elseif TT == "5" then
+                       TT = five
+                   elseif TT == "6" then
+                       TT = six
+                   end
                    
                    local Num = TT
         
