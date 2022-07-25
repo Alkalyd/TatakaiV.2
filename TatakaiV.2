@@ -90,16 +90,18 @@ local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762
                 end
                 
                 Update()
+                
                 local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
                 if Debounce == false and GloveItem then
-                    HRP.CFrame = Num.CFrame
-                   HRP.CFrame = HRP.CFrame * CFrame.new(0, 0, 1)
-                   
+                
+                    HRP.CFrame = Num
+                    
                    if Glovess == false then
                        Combats.Parent = game.Players.LocalPlayer.Character
                        
                      GloveItem.Parent = game.Players.LocalPlayer.Character
+                     
                      GloveItem.Equipped:Connect(function()
                          GloveItem:Activate()
                          Glovess = true
