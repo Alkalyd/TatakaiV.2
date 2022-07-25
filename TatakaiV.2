@@ -70,9 +70,7 @@ function TrainStrength(TT)
             end
                     one, two, three, four, five, six = table.unpack(Bags)
                     
-                    
-        while getgenv().SemiAutoStrength == true do wait()
-               if TT == "1" then
+                    if TT == "1" then
                Num = one
                elseif TT == "2" then
                Num = two
@@ -85,6 +83,9 @@ function TrainStrength(TT)
                elseif TT == "6" then
                Num = six
                end
+                    
+        while getgenv().SemiAutoStrength == true do wait()
+        
                
              local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
