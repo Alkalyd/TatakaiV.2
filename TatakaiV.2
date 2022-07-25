@@ -112,7 +112,7 @@ local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762
     end)
 end
 
-function TrainRoadwork(CD)
+function TrainRoadwork(CDD)
     spawn(function()
         local plr = game.Players.LocalPlayer
         local character = plr.character
@@ -123,6 +123,7 @@ function TrainRoadwork(CD)
         local RoadWorkFolder = game:GetService("Workspace").Roadwork
 
         while getgenv().SemiAutoRoadWork == true do wait()
+        local CD = tonumber(CDD)
              local RoadworkItem = plr.Backpack:FindFirstChild("Roadwork") or character:FindFirstChild("Roadwork")
     
                 if Debounce == false and RoadworkItem then
@@ -165,15 +166,22 @@ function TrainRoadwork(CD)
     end)
 end
 
-function ClanReroll(CD)
+function ClanReroll(CDD)
     spawn(function()
+    
+    function Update()
+    local CD = tonumber(CDD)
+    end
+    
+    Update()
 
         while getgenv().AutoClanReroll == true do task.wait(tonumber(CD))
+        Update()
             
             local Name = game:GetService("Players").AlkalydLotus.PlayerGui.MainGui.StatusFrame["Name/Clan"]
             local FoundName = Name.Text
             
-            local ClanWanted = {"Hañma","Fujin", "Kagutsuchi", "Raijin", "Ryu", "Sung"}
+            local ClanWanted = {"Hañma","Fujin", "Kagutsuchi", "Raijin", "Ryu", "Sung", "Songoku"}
             
             FoundName:gsub('(.*) (.*)', function (First, Clan)
                 Find = table.find(ClanWanted, Clan)
@@ -249,8 +257,7 @@ P1section2:addToggle("Auto Roadwork", nil, function(bool)
 end)
 
 P1section2:addSlider("Speed at which you will be Teleported", 0, 0, 2, function(value)
-    
-    TrainRoadwork(tonumber(value))
+    TrainRoadwork(value)
 end)
 
 
@@ -261,8 +268,9 @@ P2section1:addToggle("Clan Reroll", nil, function(bool)
     end
 end)
 
-P2section1:addTextbox("Rate at which you spin", "Occulations", function(value)
-ClanReroll(value)
+
+P2section1:addSlider("Rate at which you spin", 0, 0, 10, function(value)
+    ClanReroll(value)
 end)
 
 P2section2:addToggle("Auto Eat", nil, function(bool)
