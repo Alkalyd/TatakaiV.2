@@ -41,7 +41,7 @@ local P1section2 = page1:addSection("Speed")
 local P2section1 = page2:addSection("Clan Reroll")
 local P2section2 = page2:addSection("Auto Eat")
 
-function TrainStrength(TT1)
+function TrainStrength(TT)
     spawn(function()
         
         local plr = game.Players.LocalPlayer
@@ -69,11 +69,8 @@ function TrainStrength(TT1)
                 end
             end
                     one, two, three, four, five, six = table.unpack(Bags)
-                   
-                   
-        
+                  
         while getgenv().SemiAutoStrength == true do wait()
-                   TT = tostring(TT1)
         
                    if TT == "1" then 
                        TTT = one
