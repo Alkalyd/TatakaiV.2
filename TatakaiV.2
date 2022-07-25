@@ -119,14 +119,8 @@ function TrainStrength(TT)
                    else
                        Glovess = false
                       Humanoid:UnequipTools()
-                       
-                        local first = game.Workspace.Items:GetDescendants()
-                        for i, v in pairs(first) do
-                             if v.Name == "Gloves $75" then
-                                local Part = v:FindFirstChild("Head")
-                                 HRP.CFrame = Part.CFrame * CFrame.new(0, 1.8, 0)
-                             end
-                        end
+                       local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762, -3.46890516e-08, 0.000693279319, -3.46806743e-08, 1, 1.20985986e-08, -0.000693279319, 1.2074552e-08, -0.999999762)
+                        HRP.CFrame = GlovesBuyer
                 end
             end
 --
