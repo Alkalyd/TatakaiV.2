@@ -75,6 +75,7 @@ local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762
         while getgenv().SemiAutoStrength == true do wait()
                 if getgenv().SemiAutoStrength == false then
                     Glovess = false
+                    Humanoid:UnequipTools()
                 end
                 
                 Update()
