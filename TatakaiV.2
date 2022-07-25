@@ -69,25 +69,23 @@ function TrainStrength(TT)
                 end
             end
                     one, two, three, four, five, six = table.unpack(Bags)
-                  
+                    
+                    
         while getgenv().SemiAutoStrength == true do wait()
-        
-                   if TT == "1" then 
-                       TTT = one
-                   elseif TT == "2" then
-                       TTT = two
-                   elseif TT == "3" then
-                       TTT = three
-                   elseif TT == "4" then
-                       TTT = four
-                   elseif TT == "5" then
-                       TTT = five
-                   elseif TT == "6" then
-                       TTT = six
-                   end
-                   
-                   local Num = TTT
-        
+               if TT == "1" then
+               Num = one
+               elseif TT == "2"
+               Num = two
+               elseif TT == "3"
+               Num = three
+               elseif TT == "4"
+               Num = four
+               elseif TT == "5"
+               Num = five
+               elseif TT == "6"
+               Num = six
+               end
+               
              local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
                 if Debounce == false and GloveItem then
@@ -126,13 +124,12 @@ function TrainStrength(TT)
     end)
 end
 
-function TrainRoadwork(CDD)
+function TrainRoadwork(CD)
     spawn(function()
         local plr = game.Players.LocalPlayer
         local character = plr.character
         local Humanoid = character:FindFirstChild("Humanoid")
         local HRP = character:FindFirstChild("HumanoidRootPart")
-        local CD = tonumber(CDD)
         local Debounce = false
         
         local RoadWorkFolder = game:GetService("Workspace").Roadwork
@@ -264,7 +261,8 @@ P1section2:addToggle("Auto Roadwork", nil, function(bool)
 end)
 
 P1section2:addSlider("Speed at which you will be Teleported", 0, 0, 2, function(value)
-    TrainRoadwork(value)
+    
+    TrainRoadwork(tonumber(value))
 end)
 
 
