@@ -41,6 +41,7 @@ local P1section2 = page1:addSection("Speed")
 local P2section1 = page2:addSection("Clan Reroll")
 local P2section2 = page2:addSection("Auto Eat")
 
+
 function TrainStrength(TT)
     spawn(function()
         
@@ -71,26 +72,32 @@ function TrainStrength(TT)
                     one, two, three, four, five, six = table.unpack(Bags)
                     
                     function Update()
-                    if TT == "1" then
-                         Num = one
-                     elseif TT == "2" then
-                        Num = two
-                    elseif TT == "3" then
-                         Num = three
-                    elseif TT == "4" then
-                        Num = four
-                    elseif TT == "5" then
-                         Num = five
-                    elseif TT == "6" then
-                        Num = six
-                    end
+                        if TT == "1" then
+                             Num = one
+                         elseif TT == "2" then
+                            Num = two
+                        elseif TT == "3" then
+                             Num = three
+                        elseif TT == "4" then
+                            Num = four
+                        elseif TT == "5" then
+                             Num = five
+                        elseif TT == "6" then
+                            Num = six
+                        end
                     end
                     
                     Update()
                     
         while getgenv().SemiAutoStrength == true do wait()
-        
+                if getgenv().SemiAutoStrength == false then
+                    HRP.Anchored = false
+                else 
+                    HRP.Anchored = true
+                end
+                
                 Update()
+                
              local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
                 if Debounce == false and GloveItem then
