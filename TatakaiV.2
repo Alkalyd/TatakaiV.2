@@ -52,38 +52,33 @@ function TrainStrength(TT)
             local Debounce = false
             local Glovess = false
             
-            local PB = game.Workspace["Punching Bags"]:GetDescendants()
-            
-            local Bags = {}
-            local gg
-            local pg
-            
-            for i, v in pairs(PB) do
-               if v.Name == "HumanoidRootPart" then
-                   gg = table.find(Bags, v)
-                   
-                   if not gg then
-                   table.insert(Bags, v)
-                   end
-                   
-                   pg = Bags[1].CFrame
-                end
-            end
-                    one, two, three, four, five, six = table.unpack(Bags)
-                    
+            local Bag1 = CFrame.new(-1359.73511, 36.9611816, 703.817627, -0.998664975, -4.29349249e-08, -0.0516551919, -4.24157101e-08, 1, -1.11477751e-08, 0.0516551919, -8.94190055e-09, -0.998664975)
+
+local Bag2 = CFrame.new(-1379.46704, 36.9611702, 703.60553, -0.999960482, 4.06970031e-08, -0.00888726488, 4.11170973e-08, 1, -4.70865658e-08, 0.00888726488, -4.74501221e-08, -0.999960482)
+
+local Bag3 = CFrame.new(-1399.34399, 36.9611702, 703.939148, -0.999661148, -5.04665376e-09, -0.0260294788, -5.06263031e-09, 1, 5.47888346e-10, 0.0260294788, 6.79480305e-10, -0.999661148)
+
+local Bag4 = CFrame.new(-1319.40173, 36.9611702, 703.668945, -0.999652267, -6.74667255e-09, -0.0263703521, -5.594329e-09, 1, -4.37722214e-08, 0.0263703521, -4.36094751e-08, -0.999652267)
+
+local Bag5 = CFrame.new(-1299.72852, 36.9611702, 703.638245, -0.999514341, -4.52976998e-08, -0.0311620794, -4.52592985e-08, 1, -1.93775263e-09, 0.0311620794, -5.26437782e-10, -0.999514341)
+
+local Bag6 = CFrame.new(-1279.2854, 36.9611702, 703.676147, -0.99988842, 2.49608534e-09, 0.014936327, 2.41244247e-09, 1, -5.61797986e-09, -0.014936327, -5.58131985e-09, -0.99988842)
+
+local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762, -3.46890516e-08, 0.000693279319, -3.46806743e-08, 1, 1.20985986e-08, -0.000693279319, 1.2074552e-08, -0.999999762)
+
                     function Update()
                         if TT == "1" then
-                             Num = one
+                             Num = Bag1
                          elseif TT == "2" then
-                            Num = two
+                            Num = Bag2
                         elseif TT == "3" then
-                             Num = three
+                             Num = Bag3
                         elseif TT == "4" then
-                            Num = four
+                            Num = Bag4
                         elseif TT == "5" then
-                             Num = five
+                             Num = Bag5
                         elseif TT == "6" then
-                            Num = six
+                            Num = Bag6
                         end
                     end
                     
@@ -119,7 +114,6 @@ function TrainStrength(TT)
                    else
                        Glovess = false
                       Humanoid:UnequipTools()
-                       local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762, -3.46890516e-08, 0.000693279319, -3.46806743e-08, 1, 1.20985986e-08, -0.000693279319, 1.2074552e-08, -0.999999762)
                         HRP.CFrame = GlovesBuyer
                 end
             end
