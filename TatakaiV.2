@@ -91,11 +91,7 @@ function TrainStrength(TT)
                     
         while getgenv().SemiAutoStrength == true do wait()
                 if getgenv().SemiAutoStrength == false then
-                    HRP.Anchored = false
                     Humanoid:UnequipTools()
-                    Debounce = false
-                else 
-                    HRP.Anchored = true
                 end
                 
                 Update()
@@ -129,7 +125,7 @@ function TrainStrength(TT)
                         for i, v in pairs(first) do
                              if v.Name == "Gloves $75" then
                                 local Part = v:FindFirstChild("Head")
-                                 HRP.CFrame = Part.CFrame * CFrame.new(-3, 0, 0)
+                                 HRP.CFrame = Part.CFrame * CFrame.new(1, 0, 0)
                              end
                         end
                 end
