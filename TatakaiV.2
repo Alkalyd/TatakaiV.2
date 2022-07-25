@@ -10,10 +10,10 @@ local Block = table.find(BlackList, plr.UserId)
 
 
 if Find or Find1 then
---Page 1
+
 getgenv().SemiAutoStrength = false
 getgenv().SemiAutoRoadWork = false
---Page 2
+
 getgenv().AutoClanReroll = false
 getgenv().AutoEat = false
 
@@ -285,7 +285,7 @@ P2section2:addToggle("Auto Eat", nil, function(bool)
     end
 end)
 
-P2section2:addSlider("Slider", 0, 0, 100, function(value)
+P2section2:addSlider("How low your hunger will be before you eat", 0, 0, 100, function(value)
 AutoEat(value)
 end)
 
@@ -295,7 +295,7 @@ end)
 
 P2section2:addTextbox("Rate at which you eat food", "Occulation", function(value)
     AutoEat( , , value)
-end
+end)
 
 -- second page
 local theme = venyx:addPage("Theme", 5012544693)
