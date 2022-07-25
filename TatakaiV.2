@@ -97,22 +97,22 @@ local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762
                      end)
                 
                     Combats.Equipped:Connect(function()
-                        while Glovess == true do wait()
-                        Combats:Activate()
-                        end
+                            while Glovess == true do wait()
+                                Combats:Activate()
+                            end
                         end)
                     end
                    else
                        Glovess = false
-                      Humanoid:UnequipTools()
-                        HRP.CFrame = GlovesBuyer
+                       Humanoid:UnequipTools()
+                       HRP.CFrame = GlovesBuyer
                 end
             end
 --
     end)
 end
 
-function TrainRoadwork(CDD)
+function TrainRoadwork()
     spawn(function()
         local plr = game.Players.LocalPlayer
         local character = plr.character
@@ -121,9 +121,16 @@ function TrainRoadwork(CDD)
         local Debounce = false
         
         local RoadWorkFolder = game:GetService("Workspace").Roadwork
-
+        
+        function Update()
+        CD = tonumber()
+        end
+        Update()
+        
+        print(CD)
+        
         while getgenv().SemiAutoRoadWork == true do wait()
-        local CD = tonumber(CDD)
+            Update()
              local RoadworkItem = plr.Backpack:FindFirstChild("Roadwork") or character:FindFirstChild("Roadwork")
     
                 if Debounce == false and RoadworkItem then
@@ -157,10 +164,10 @@ function TrainRoadwork(CDD)
                 HRP.CFrame = RoadWorkFolder["8"].CFrame
                 game.Players.LocalPlayer.Character.Humanoid.Jump = true
                 wait(CD)
-                HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(27.3, 0, -79)
+                HRP.CFrame = CFrame.new(-1349.1582, 36.9611702, 754.310791, -0.999983788, -4.03832594e-08, 0.00569608901, -4.00918729e-08, 1, 5.12697227e-08, -0.00569608901, 5.10405229e-08, -0.999983788)
                 Debounce = false
                 else
-                    HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(27.3, 0, -79)
+                    HRP.CFrame = CFrame.new(-1349.1582, 36.9611702, 754.310791, -0.999983788, -4.03832594e-08, 0.00569608901, -4.00918729e-08, 1, 5.12697227e-08, -0.00569608901, 5.10405229e-08, -0.999983788)
                 end
              end
     end)
@@ -170,15 +177,17 @@ function ClanReroll(CDD)
     spawn(function()
     
     function Update()
-    local CD = tonumber(CDD)
+    CD = tonumber(CDD)
     end
+    
+    print(CD)
     
     Update()
 
         while getgenv().AutoClanReroll == true do task.wait(tonumber(CD))
         Update()
             
-            local Name = game:GetService("Players").AlkalydLotus.PlayerGui.MainGui.StatusFrame["Name/Clan"]
+            local Name = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StatusFrame["Name/Clan"]
             local FoundName = Name.Text
             
             local ClanWanted = {"Hañma","Fujin", "Kagutsuchi", "Raijin", "Ryu", "Sung", "Songoku"}
@@ -190,6 +199,7 @@ function ClanReroll(CDD)
             if Find then
                 print("Clan Found")
                 getgenv().AutoClanReroll = false
+                plr:Kick(Rejoin, You got the clan you wanted)
             break
             
             elseif not Find then
@@ -210,19 +220,27 @@ spawn(function()
 
     local Check = plr.Backpack:GetChildren() or character:GetChildren()
 
-    local HungerText = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StatusFrame.Hunger.stat
+    local HungerText = plr.PlayerGui.MainGui.StatusFrame.Hunger.stat
     local Hungervalue = HungerText.Text 
 
     Hungervalue:gsub('(.*)/(.*)', function (Current, Max)
         NumCurrent = tonumber(Current)
     end)
     
-    local CD = tonumber(CDD)
+    function Update()
+         CD = tonumber(CDD)
+         v1 = tonumber(v11)
+         v2 = tostring(v22)
+    end
+ 
+    Update()
+    
+    print(CD)
+    print(v1)
+    print(v2)
     
     while getgenv().AutoEat == true do wait(CD)
-         local v1 = tonumber(v11)
-         local v2 = tostring(v22)
-         
+        Update()
          if NumCurrent <= v1 then
             for i, v in pairs(Check) do
                 if v.Name == v2 then 
@@ -256,10 +274,9 @@ P1section2:addToggle("Auto Roadwork", nil, function(bool)
     end
 end)
 
-P1section2:addSlider("Speed at which you will be Teleported", 0, 0, 2, function(value)
+P1section2:addSlider("Speed at which you are teleported", 0, 0, 2, function(value)
     TrainRoadwork(value)
 end)
-
 
 P2section1:addToggle("Clan Reroll", nil, function(bool)
     getgenv().AutoClanReroll = bool
@@ -267,7 +284,6 @@ P2section1:addToggle("Clan Reroll", nil, function(bool)
         ClanReroll()
     end
 end)
-
 
 P2section1:addSlider("Rate at which you spin", 0, 0, 10, function(value)
     ClanReroll(value)
