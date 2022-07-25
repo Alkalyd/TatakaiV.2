@@ -41,7 +41,7 @@ local P1section2 = page1:addSection("Speed")
 local P2section1 = page2:addSection("Clan Reroll")
 local P2section2 = page2:addSection("Auto Eat")
 
-function TrainStrength(TT)
+function TrainStrength(TT1)
     spawn(function()
         
         local plr = game.Players.LocalPlayer
@@ -70,7 +70,12 @@ function TrainStrength(TT)
             end
                     one, two, three, four, five, six = table.unpack(Bags)
                    
-                  if TT == "1" then 
+                   
+        
+        while getgenv().SemiAutoStrength == true do wait()
+                   TT = tostring(TT1)
+        
+                   if TT == "1" then 
                        TTT = one
                    elseif TT == "2" then
                        TTT = two
@@ -86,7 +91,6 @@ function TrainStrength(TT)
                    
                    local Num = TTT
         
-        while getgenv().SemiAutoStrength == true do wait()
              local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
                 if Debounce == false and GloveItem then
