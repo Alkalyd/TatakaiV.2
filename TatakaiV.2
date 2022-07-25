@@ -10,11 +10,12 @@ local Block = table.find(BlackList, plr.UserId)
 
 
 if Find or Find1 then
-    
+--Page 1
 getgenv().SemiAutoStrength = false
 getgenv().SemiAutoRoadWork = false
-
+--Page 2
 getgenv().AutoClanReroll = false
+getgenv().AutoEat = false
 
 -- init
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
@@ -38,7 +39,7 @@ local P1section1 = page1:addSection("Strength")
 local P1section2 = page1:addSection("Speed")
 
 local P2section1 = page2:addSection("Clan Reroll")
-
+local P2section2 = page2:addSection("Auto Eat")
 
 function TrainStrength(TTT)
     spawn(function()
@@ -206,6 +207,43 @@ function ClanReroll(CD)
     end)
 end
 
+function AutoEat(v11, v22, CDD)
+spawn(function()
+    local plr = game.Players.LocalPlayer
+    local character = plr.character
+    local Humanoid = character:FindFirstChild("Humanoid")
+    local HRP = character:FindFirstChild("HumanoidRootPart")
+
+    local Check = plr.Backpack:GetChildren() or character:GetChildren()
+
+    local HungerText = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StatusFrame.Hunger.stat
+    local Hungervalue = HungerText.Text 
+
+    Hungervalue:gsub('(.*)/(.*)', function (Current, Max)
+        NumCurrent = tonumber(Current)
+    end)
+    
+    local CD = tonumber(CDD)
+    
+    while getgenv().AutoEat == true do wait(CD)
+         local v1 = tonumber(v11)
+         local v2 = tostring(v22)
+         
+         if NumCurrent <= v1 then
+            for i, v in pairs(Check) do
+                if v.Name == v2 then 
+                    Humanoid:EquipTool(v)
+                    v:Activate()
+                    wait(3)
+                    Humanoid:UnequipTool()
+                end
+            end
+        end
+    end
+end)
+end
+
+---------------------------------------------------------------------------
 P1section1:addToggle("Auto Strength", nil, function(bool)
     getgenv().SemiAutoStrength = bool
     if bool then
@@ -239,6 +277,25 @@ end)
 P2section1:addTextbox("Rate at which you spin", "Occulations", function(value)
 ClanReroll(value)
 end)
+
+P2section2:addToggle("Auto Eat", nil, function(bool)
+    getgenv().AutoEat = bool
+    if bool then
+        AutoEat()
+    end
+end)
+
+P2section2:addSlider("Slider", 0, 0, 100, function(value)
+AutoEat(value)
+end)
+
+P2section2:addDropdown("Select Food Item", {"Chicken", "Chocolate Shake", "Mango Shake", "Ramen", "Burger", "Strawberry Shake"}, function(text)
+AutoEat( , text)
+end)
+
+P2section2:addTextbox("Rate at which you eat food", "Occulation", function(value)
+    AutoEat( , , value)
+end
 
 -- second page
 local theme = venyx:addPage("Theme", 5012544693)
