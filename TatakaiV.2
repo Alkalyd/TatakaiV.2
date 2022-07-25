@@ -205,14 +205,14 @@ P1section1:addDropdown("Select Punching Bag", {one, two, three, four, five, six}
     TrainStrength(text)
 end)
 
-P1section2:addToggle("Auto Speed", nil, function(bool)
+P1section2:addToggle("Auto Roadwork", nil, function(bool)
     getgenv().SemiAutoRoadWork = bool
     if bool then
         TrainRoadwork()
     end
 end)
 
-P1section2:addSlider("Slider", 0, 0, 2, function(value)
+P1section2:addSlider("Speed at which you will be Teleported", 0, 0, 2, function(value)
     TrainRoadwork(value)
 end)
 
