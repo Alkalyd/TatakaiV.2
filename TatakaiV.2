@@ -92,6 +92,9 @@ function TrainStrength(TT)
         while getgenv().SemiAutoStrength == true do wait()
                 if getgenv().SemiAutoStrength == false then
                     HRP.Anchored = false
+                    
+                    local RoadWorkFolder = game:GetService("Workspace").Roadwork
+                    HRP.CFrame = RoadWorkFolder["7"].CFrame * CFrame.new(20, 0 -79)
                 else 
                     HRP.Anchored = true
                 end
@@ -102,7 +105,7 @@ function TrainStrength(TT)
                 local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
                 if Debounce == false and GloveItem then
                     HRP.CFrame = Num.CFrame
-                   HRP.CFrame = HRP.CFrame * CFrame.new(0, 0, 1)
+                   HRP.CFrame = HRP.CFrame * CFrame.new(0, 5, 1)
                    
                    if Glovess == false then
                        Combats.Parent = game.Players.LocalPlayer.Character
@@ -127,7 +130,7 @@ function TrainStrength(TT)
                         for i, v in pairs(first) do
                              if v.Name == "Gloves $75" then
                                 local Part = v:FindFirstChild("Head")
-                                 HRP.CFrame = Part.CFrame * CFrame.new(0, 1, 0)
+                                 HRP.CFrame = Part.CFrame * CFrame.new(0, 2.5, 0)
                              end
                         end
                 end
