@@ -197,9 +197,8 @@ function ClanReroll(CDD)
             end)
             
             if Find then
-                print("Clan Found")
                 getgenv().AutoClanReroll = false
-                plr:Kick(Rejoin, You got the clan you wanted)
+                plr:Kick("Rejoin, You got the clan you wanted")
             break
             
             elseif not Find then
