@@ -173,24 +173,15 @@ function TrainRoadwork()
     end)
 end
 
-function ClanReroll(CDD)
+function ClanReroll()
     spawn(function()
-    
-    function Update()
-    CD = tonumber(CDD)
-    end
-    
-    print(CD)
-    
-    Update()
 
-        while getgenv().AutoClanReroll == true do task.wait(tonumber(CD))
-        Update()
+        while getgenv().AutoClanReroll == true do task.wait(0.125)
             
             local Name = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.StatusFrame["Name/Clan"]
             local FoundName = Name.Text
             
-            local ClanWanted = {"Hañma","Fujin", "Kagutsuchi", "Raijin", "Ryu", "Sung", "Songoku"}
+            local ClanWanted = {"Hañma", "Songoku", "Kagutsuchi", "Sung", "Raijin", "Gyakusatsu", "Senkō", "Sanji", "Ryu", "Fujin"}
             
             FoundName:gsub('(.*) (.*)', function (First, Clan)
                 Find = table.find(ClanWanted, Clan)
@@ -210,7 +201,7 @@ function ClanReroll(CDD)
     end)
 end
 
-function AutoEat(v11, v22, CDD)
+function AutoEat(v11, v22)
 spawn(function()
     local plr = game.Players.LocalPlayer
     local character = plr.character
@@ -227,18 +218,16 @@ spawn(function()
     end)
     
     function Update()
-         CD = tonumber(CDD)
          v1 = tonumber(v11)
          v2 = tostring(v22)
     end
  
     Update()
     
-    print(CD)
     print(v1)
     print(v2)
     
-    while getgenv().AutoEat == true do wait(CD)
+    while getgenv().AutoEat == true do wait(10)
         Update()
          if NumCurrent <= v1 then
             for i, v in pairs(Check) do
@@ -284,10 +273,6 @@ P2section1:addToggle("Clan Reroll", nil, function(bool)
     end
 end)
 
-P2section1:addSlider("Rate at which you spin", 0, 0, 10, function(value)
-    ClanReroll(value)
-end)
-
 P2section2:addToggle("Auto Eat", nil, function(bool)
     getgenv().AutoEat = bool
     if bool then
@@ -301,10 +286,6 @@ end)
 
 P2section2:addDropdown("Select Food Item", {"Chicken", "Chocolate Shake", "Mango Shake", "Ramen", "Burger", "Strawberry Shake"}, function(text)
 AutoEat(nil , text)
-end)
-
-P2section2:addTextbox("Rate at which you eat food", "Occulation", function(value)
-    AutoEat(nil ,nil , value)
 end)
 
 -- second page
