@@ -1,4 +1,6 @@
-WhiteList = {284067266, 2958991826, 2637656194, 1179103962, 33901315, 101740507, 88364578, 639224736, 1679527327, 1253987799, 218371336, 54099434, 2441474267}
+---@diagnostic disable: undefined-global, undefined-field, deprecated
+
+WhiteList = {284067266, 2958991826, 2637656194, 1179103962, 33901315, 101740507, 88364578, 639224736, 1679527327, 1253987799, 218371336, 54099434, 2441474267, 1033506005}
 GuestList = {1743013672, 101953890}
 BlackList = {}
 
@@ -11,11 +13,14 @@ local Block = table.find(BlackList, plr.UserId)
 
 if Find or Find1 then
 
-getgenv().SemiAutoStrength = false
-getgenv().SemiAutoRoadWork = false
+getgenv().AutoPunchingBag = false
+getgenv().AutoPullups = false
+
+--getgenv().SemiAutoRoadWork = false
 
 getgenv().AutoClanReroll = false
-getgenv().AutoEat = false
+--getgenv().AutoEat = false
+getgenv().AutoEatXP = false
 
 -- init
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
@@ -36,83 +41,119 @@ local page1 = venyx:addPage("Stat Farm", 5012544693)
 local page2 = venyx:addPage("Misc", 5012544961)
 
 local P1section1 = page1:addSection("Strength")
-local P1section2 = page1:addSection("Speed")
+local P1section2 = page1:addSection("Durability")
+local P1section3 = page1:addSection("Speed")
 
 local P2section1 = page2:addSection("Clan Reroll")
 local P2section2 = page2:addSection("Auto Eat")
 
 
-function TrainStrength(TT)
+function TrainStrength()
     spawn(function()
         
         local plr = game.Players.LocalPlayer
-            local character = plr.character
-            local Humanoid = character:FindFirstChild("Humanoid")
-            local HRP = character:FindFirstChild("HumanoidRootPart")
-            local Debounce = false
-            local Glovess = false
+        local character = plr.character
+        local Humanoid = character:FindFirstChild("Humanoid")
+        local HRP = character:FindFirstChild("HumanoidRootPart")
+        local Glovess = false
+        Bags = {}
 
-local GlovesBuyer = CFrame.new(-1341.37695, 36.9611816, 755.098877, -0.999999762, -3.46890516e-08, 0.000693279319, -3.46806743e-08, 1, 1.20985986e-08, -0.000693279319, 1.2074552e-08, -0.999999762)
+        local PunchingBagFolder = game:GetService("Workspace")["Punching Bags"]
 
-                    function Update()
-                        if TT == "1" then
-                             Num = CFrame.new(-1359.73511, 36.9611816, 703.817627, -0.998664975, -4.29349249e-08, -0.0516551919, -4.24157101e-08, 1, -1.11477751e-08, 0.0516551919, -8.94190055e-09, -0.998664975)
-                         elseif TT == "2" then
-                            Num = CFrame.new(-1379.46704, 36.9611702, 703.60553, -0.999960482, 4.06970031e-08, -0.00888726488, 4.11170973e-08, 1, -4.70865658e-08, 0.00888726488, -4.74501221e-08, -0.999960482)
-                        elseif TT == "3" then
-                             Num = CFrame.new(-1399.34399, 36.9611702, 703.939148, -0.999661148, -5.04665376e-09, -0.0260294788, -5.06263031e-09, 1, 5.47888346e-10, 0.0260294788, 6.79480305e-10, -0.999661148)
-                        elseif TT == "4" then
-                            Num = CFrame.new(-1319.40173, 36.9611702, 703.668945, -0.999652267, -6.74667255e-09, -0.0263703521, -5.594329e-09, 1, -4.37722214e-08, 0.0263703521, -4.36094751e-08, -0.999652267)
-                        elseif TT == "5" then
-                             Num = CFrame.new(-1299.72852, 36.9611702, 703.638245, -0.999514341, -4.52976998e-08, -0.0311620794, -4.52592985e-08, 1, -1.93775263e-09, 0.0311620794, -5.26437782e-10, -0.999514341)
-                        elseif TT == "6" then
-                            Num = CFrame.new(-1279.2854, 36.9611702, 703.676147, -0.99988842, 2.49608534e-09, 0.014936327, 2.41244247e-09, 1, -5.61797986e-09, -0.014936327, -5.58131985e-09, -0.99988842)
+        local function Update()
+            if getgenv().AutoPunchingBag == false then
+                Glovess = false
+            end
+        end
+         
+        Update()
+                    
+        while getgenv().AutoPunchingBag == true do wait()
+                Update()
+        
+                local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
+                local GloveItem = character:FindFirstChild("Gloves") and character:FindFirstChild("RightGloves") and character:FindFirstChild("LeftGloves")
+
+                for i, v in pairs(PunchingBagFolder:GetDescendants()) do 
+                    if v.Name == "HumanoidRootPart" then
+                        local distance = (HRP.Position - v.Position).magnitude
+                        
+                        if math.floor(distance) < 5 then
+                            if #Bags == 0 then
+                                table.insert(Bags, v)
+                            end
+
+                            if #Bags == 1 then
+                                Combats.Parent = character
+                                Humanoid:EquipTool(Combats)
+                                Glovess = true
+                                Combats.Equipped:Connect(function()
+                                    while Glovess == true and getgenv().AutoPunchingBag == true do wait()
+                                        if Glovess == false or getgenv().AutoPunchingBag == false then break end
+
+                                        Combats:Activate()
+                                    end
+                                end)
+                            end
+
+                        elseif #Bags >= 1 and math.floor((HRP.Position - Bags[1].Position).magnitude) > 5 then
+                            Glovess = false
+                             table.clear(Bags)
                         end
                     end
-                    
-                    Update()
-                    
-        while getgenv().SemiAutoStrength == true do wait()
-                if getgenv().SemiAutoStrength == false then
-                    Glovess = false
-                    Humanoid:UnequipTools()
                 end
-                
-                Update()
-                
-                local Combats = plr.Backpack:FindFirstChild("Combat") or character:FindFirstChild("Combat")
-                local GloveItem = plr.Backpack:FindFirstChild("Gloves") or character:FindFirstChild("Gloves")
-                if Debounce == false and GloveItem then
-                
-                    HRP.CFrame = Num
-                    
-                   if Glovess == false then
-                       Combats.Parent = game.Players.LocalPlayer.Character
-                       
-                     GloveItem.Parent = game.Players.LocalPlayer.Character
-                     
-                     GloveItem.Equipped:Connect(function()
-                         GloveItem:Activate()
-                         Glovess = true
-                     end)
-                
-                    Combats.Equipped:Connect(function()
-                            while Glovess == true do wait()
-                                Combats:Activate()
-                            end
-                        end)
-                    end
-                   else
-                       Glovess = false
-                       Humanoid:UnequipTools()
-                       HRP.CFrame = GlovesBuyer
-                end
+
             end
 --
     end)
 end
+-----------------------------------------------------------------------------------
+function AutoDurability()
+    spawn(function()
 
-function TrainRoadwork()
+        local function Update(XL)
+            StaminaStat = plr.PlayerGui.MainGui.StatusFrame.Stamina.stat.Text
+
+            StaminaStat:gsub('(.*)/(.*)', function(Current, Max)
+                StaminaPercentage = math.floor((tonumber(Current)/tonumber(Max)) * 100)
+            end)
+
+            if StaminaPercentage > XL then
+                Var1 = 1
+                elseif StaminaPercentage <= XL then
+                Var1 = 1.8
+
+                elseif XL == nil then
+                    Var1 = 1
+            end
+        end
+
+        
+
+        while getgenv().AutoPullups == true do
+            TrainingStation = game:GetService("Workspace").TrainingStations
+            InCombat = plr:FindFirstChild("InCombat")
+
+            for i, v in pairs(TrainingStation:GetDescendants()) do
+                if v.Name == "Main" then
+                    local distance = (HRP.Position - v.Position).magnitude
+                    if math.floor(distance) < 4 then
+                        local Detector = v.Parent:FindFirstChild("ClickDetector")
+                        if not InCombats then
+                            fireclickdetector(Detector)
+                            if character:FindFirstChild("Pullup") then
+                                mouse1click() 
+                            end
+                        end
+                    end
+                end
+            end
+            wait(1.5)
+        end
+    end)
+end
+-----------------------------------------------------------------------------------
+function TrainRoadwork(CD)
     spawn(function()
         local plr = game.Players.LocalPlayer
         local character = plr.character
@@ -121,13 +162,6 @@ function TrainRoadwork()
         local Debounce = false
         
         local RoadWorkFolder = game:GetService("Workspace").Roadwork
-        
-        function Update()
-        CD = tonumber()
-        end
-        Update()
-        
-        print(CD)
         
         while getgenv().SemiAutoRoadWork == true do wait()
             Update()
@@ -172,7 +206,7 @@ function TrainRoadwork()
              end
     end)
 end
-
+-----------------------------------------------------------------------------------
 function ClanReroll()
     spawn(function()
 
@@ -187,84 +221,128 @@ function ClanReroll()
                 Find = table.find(ClanWanted, Clan)
             end)
             
-            if Find then
-                getgenv().AutoClanReroll = false
-                plr:Kick("Rejoin, You got the clan you wanted")
-            break
-            
-            elseif not Find then
-                
+            if getgenv().AutoClanReroll == true then
+                    
                 local args = {[1] = "BP"}
                 game:GetService("ReplicatedStorage").Reroll:FireServer(unpack(args))
-            end
-        end
-    end)
-end
 
-function AutoEat(v11, v22)
-spawn(function()
-    local plr = game.Players.LocalPlayer
-    local character = plr.character
-    local Humanoid = character:FindFirstChild("Humanoid")
-    local HRP = character:FindFirstChild("HumanoidRootPart")
-
-    local Check = plr.Backpack:GetChildren() or character:GetChildren()
-
-    local HungerText = plr.PlayerGui.MainGui.StatusFrame.Hunger.stat
-    local Hungervalue = HungerText.Text 
-
-    Hungervalue:gsub('(.*)/(.*)', function (Current, Max)
-        NumCurrent = tonumber(Current)
-    end)
-    
-    function Update()
-         v1 = tonumber(v11)
-         v2 = tostring(v22)
-    end
- 
-    Update()
-    
-    print(v1)
-    print(v2)
-    
-    while getgenv().AutoEat == true do wait(10)
-        Update()
-         if NumCurrent <= v1 then
-            for i, v in pairs(Check) do
-                if v.Name == v2 then 
-                    Humanoid:EquipTool(v)
-                    v:Activate()
-                    wait(3)
-                    Humanoid:UnequipTool()
+                if Find then
+                    getgenv().AutoClanReroll = false
+                    plr:Kick("Rejoin, You got the clan you wanted")
+                break
                 end
             end
         end
-    end
-end)
+    end)
+end
+-----------------------------------------------------------------------------------
+function AutoEat(XX)
+    spawn(function()
+        
+        local plr = game.Players.LocalPlayer
+        local character = plr.character
+        local Humanoid = character:FindFirstChild("Humanoid")
+        local HRP = character:FindFirstChild("HumanoidRootPart")
+
+        local Debounce = false
+
+        local function Update()
+            CheckForBurger = plr.Backpack:GetChildren() or character:GetChildren()
+
+            HungerText = plr.PlayerGui.MainGui.StatusFrame.Hunger.stat
+            Hungervalue = HungerText.Text 
+            Hungervalue:gsub('(.*)/(.*)', function (Current, Max)
+                HungerPercentage = math.floor((tonumber(Current)/ tonumber(Max)) * 100)
+            end)
+        end
+
+        Update()
+
+        while getgenv().AutoEatBurger == true do wait()
+            Update()
+            for i, v in pairs(CheckForBurger) do
+                if v.Name == "Burger" then
+                    if HungerPercentage < XX and not Debounce then
+                        Debounce = true
+                        Humanoid:EquipTool(v)
+                        v:Activate()
+                        wait(1.5)
+                        Humanoid:UnequipTools()
+                        Debounce = false
+                    elseif XX == nil then
+                        XX = 100
+                    end
+                end
+            end
+        end
+
+    end)
 end
 
----------------------------------------------------------------------------
+function AutoEatChicken()
+    spawn(function()
+        local plr = game.Players.LocalPlayer
+        local character = plr.character
+        local Humanoid = character:FindFirstChild("Humanoid")
+        local HRP = character:FindFirstChild("HumanoidRootPart")
+
+        local Debounce = false
+
+        local function Update()
+            XPBoostCheck = plr:FindFirstChild("XPBoost")
+            CheckForChicken = plr.Backpack:GetChildren() or character:GetChildren()
+        end
+    
+        while getgenv().AutoEatXP == true do wait()
+            Update()
+            for i, v in pairs(CheckForChicken) do
+                if v.Name == "Chicken" then 
+                if not XPBoostCheck and not Debounce then
+                        Debounce = true
+                        Humanoid:EquipTool(v)
+                        v:Activate()
+                        wait(1.5)
+                        Humanoid:UnequipTools()
+                        Debounce = false
+                    end
+                end
+            end
+        end
+    end)
+end
+-----------------------------------------------------------------------------------
 P1section1:addToggle("Auto Strength", nil, function(bool)
-    getgenv().SemiAutoStrength = bool
+    getgenv().AutoPunchingBag = bool
     if bool then
         TrainStrength()
     end
 end)
 
-P1section1:addDropdown("Select Punching Bag", {"1", "2", "3", "4", "5", "6"}, function(text)
-    TrainStrength(text)
+P1section2:addToggle("Auto Pullups", nil, function(bool)
+    getgenv().AutoPullups = bool
+    if bool then
+        AutoDurability()
+    end
 end)
 
-P1section2:addToggle("Auto Roadwork", nil, function(bool)
+--[[
+P1section2:addSlider("Slows down if stamina under a certain %", 0, 20, 100, function(value)
+    AutoDurability(value)
+end)
+--]]
+
+--[[
+P1section3:addToggle("Auto Roadwork", nil, function(bool)
     getgenv().SemiAutoRoadWork = bool
     if bool then
         TrainRoadwork()
     end
 end)
 
-P1section2:addSlider("Speed at which you are teleported", 0, 0, 2, function(value)
+P1section3:addSlider("Speed at which you are teleported", 0, 0, 2, function(value)
     TrainRoadwork(value)
 end)
+--]]
 
 P2section1:addToggle("Clan Reroll", nil, function(bool)
     getgenv().AutoClanReroll = bool
@@ -273,19 +351,26 @@ P2section1:addToggle("Clan Reroll", nil, function(bool)
     end
 end)
 
-P2section2:addToggle("Auto Eat", nil, function(bool)
-    getgenv().AutoEat = bool
+--[[
+P2section2:addSlider("Start eating if hunger bar is under certain %", 0, 20, 100, function(value)--Need fix
+    AutoEat(value)
+end)
+--]]
+
+--[[
+P2section2:addToggle("Auto Eat(Burger)", nil, function(bool)
+    getgenv().AutoEatBurger = bool
     if bool then
         AutoEat()
     end
 end)
+--]]
 
-P2section2:addSlider("How low your hunger will be before you eat", 0, 0, 100, function(value)
-AutoEat(value)
-end)
-
-P2section2:addDropdown("Select Food Item", {"Chicken", "Chocolate Shake", "Mango Shake", "Ramen", "Burger", "Strawberry Shake"}, function(text)
-AutoEat(nil , text)
+P2section2:addToggle("XP Boost(Chicken)", nil, function(bool)
+    getgenv().AutoEatXP = bool
+    if bool then
+        AutoEatChicken()
+    end
 end)
 
 -- second page
