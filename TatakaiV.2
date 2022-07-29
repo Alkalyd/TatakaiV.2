@@ -76,7 +76,7 @@ function TrainStrength()
                 local GloveItem = character:FindFirstChild("Gloves") and character:FindFirstChild("RightGloves") and character:FindFirstChild("LeftGloves")
 
                 for i, v in pairs(PunchingBagFolder:GetDescendants()) do 
-                    if v.Name == "HumanoidRootPart" then
+                    if v.Name == "HumanoidRootPart" and getgenv().AutoPunchingBag == true then
                         local distance = (HRP.Position - v.Position).magnitude
                         
                         if math.floor(distance) < 5 then
