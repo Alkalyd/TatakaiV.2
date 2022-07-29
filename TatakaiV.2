@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global, undefined-field, deprecated
 
-WhiteList = {284067266, 2958991826, 2637656194, 1179103962, 33901315, 101740507, 88364578, 639224736, 1679527327, 1253987799, 218371336, 54099434, 2441474267, 1033506005}
+WhiteList = {284067266, 2958991826, 2637656194, 1179103962, 33901315, 101740507, 88364578, 639224736, 1679527327, 1253987799, 218371336, 54099434, 2441474267, 1033506005, 2392031867}
 GuestList = {1743013672, 101953890}
 BlackList = {}
 
@@ -42,6 +42,7 @@ local page2 = venyx:addPage("Misc", 5012544961)
 
 local P1section1 = page1:addSection("Strength")
 local P1section2 = page1:addSection("Durability")
+
 --local P1section3 = page1:addSection("Speed")
 
 local P2section1 = page2:addSection("Clan Reroll")
@@ -111,6 +112,11 @@ end
 function AutoDurability()
     spawn(function()
 
+        local plr = game.Players.LocalPlayer
+        local character = plr.character
+        local Humanoid = character:FindFirstChild("Humanoid")
+        local HRP = character:FindFirstChild("HumanoidRootPart")
+--[[
         local function Update(XL)
             StaminaStat = plr.PlayerGui.MainGui.StatusFrame.Stamina.stat.Text
 
@@ -127,7 +133,7 @@ function AutoDurability()
                     Var1 = 1
             end
         end
-
+--]]
         
 
         while getgenv().AutoPullups == true do
@@ -135,9 +141,9 @@ function AutoDurability()
             InCombat = plr:FindFirstChild("InCombat")
 
             for i, v in pairs(TrainingStation:GetDescendants()) do
-                if v.Name == "Main" then
+                if v.Name == "Main" and getgenv().AutoPullups == true then
                     local distance = (HRP.Position - v.Position).magnitude
-                    if math.floor(distance) < 4 then
+                    if math.floor(distance) < 5 then
                         local Detector = v.Parent:FindFirstChild("ClickDetector")
                         if not InCombats then
                             fireclickdetector(Detector)
@@ -289,7 +295,7 @@ function AutoEatChicken()
         local Debounce = false
 
         local function Update()
-            XPBoostCheck = plr:FindFirstChild("XPBoost")
+            XPBoostCheck = plr:FindFirstChild("XPBoost") or plr:FindFirstChild("Eating")
             CheckForChicken = plr.Backpack:GetChildren() or character:GetChildren()
         end
     
@@ -297,7 +303,8 @@ function AutoEatChicken()
             Update()
             for i, v in pairs(CheckForChicken) do
                 if v.Name == "Chicken" then 
-                if not XPBoostCheck and not Debounce then
+                    Update()
+                if not XPBoostCheck and not Debounce and getgenv().AutoEatXP == true then
                         Debounce = true
                         Humanoid:EquipTool(v)
                         v:Activate()
